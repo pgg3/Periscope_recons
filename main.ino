@@ -25,8 +25,7 @@
 
 const int chipSelect = 10;
 const int analogPin = A2;
-String dataLog = "datalog.txt";
-String timeLog = "timelog.txt";
+String dataLog = "1234.txt";
 int DataLength = 0;
 
 void setup()
@@ -55,7 +54,6 @@ void setup()
     {
         Serial.println("log file exists, deleting...");
         SD.remove(dataLog);
-        SD.remove(timeLog);
         Serial.println("log file deleted.");
     }
     else
@@ -68,23 +66,23 @@ void loop()
 {
     // make a string for assembling the data to log:
     String dataString;
-    unsigned long time = millis();
+    unsigned long time;
 
     // read the pin
     dataString = analogRead(analogPin);
+    time = millis();
 
     // open the file. note that only one file can be open at a time,
     // so you have to close this one before opening another.
     File dataFile = SD.open(dataLog, FILE_WRITE);
-    File timeFile = SD.open(timeLog, FILE_WRITE);
 
     // if the file is available, write to it:
     if (dataFile)
     {
+        dataFile.print(time);
+        dataFile.print(",");
         dataFile.println(dataString);
         dataFile.close();
-        timeFile.println(time);
-        timeFile.close();
         // print to the serial port too:
         // Serial.println(dataString);
     }
@@ -94,12 +92,13 @@ void loop()
         Serial.println("error opening datalog.txt");
     }
 
-    DataLength += 1; 
+    DataLength += 1;
 
-    if (DataLength > 500)
+    if (DataLength > 400)
     {
-        Serial.println("DataLength > 500");
+        Serial.println("DataLength > 400");
         while (1)
             ;
     }
+    delay(50);
 }
