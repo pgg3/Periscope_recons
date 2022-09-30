@@ -94,11 +94,11 @@ void loop()
 
     DataLength += 1;
 
-    if (DataLength > 1000)
+    if (DataLength > 2000)
     {
-        Serial.println("DataLength > 1000");
+        Serial.println("DataLength > 2000");
         while (1)
             ;
     }
-    delay(20);
+    // delay(20);
 }

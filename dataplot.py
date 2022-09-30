@@ -3,14 +3,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-DATA_PATH = "./data/delay20"
-NON_DATA = ["none", "none-1"]
+DATA_PATH = "./data"
+# NON_DATA = ["none", "none-1"]
+NON_DATA = []
 DATA_LABELS = [
     "1234",
     "2345",
 ]
 
-DATA_RANGE = np.arange(0, 1000)
+DATA_RANGE = np.arange(0, 2000)
 # DATA_RANGE = np.arange(20, 200)
 
 
