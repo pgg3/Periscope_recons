@@ -25,7 +25,7 @@
 
 const int chipSelect = 10;
 const int analogPin = A2;
-String dataLog = "1234.txt";
+String dataLog = "2345.txt";
 int DataLength = 0;
 
 void setup()
@@ -94,11 +94,11 @@ void loop()
 
     DataLength += 1;
 
-    if (DataLength > 400)
+    if (DataLength > 1000)
     {
-        Serial.println("DataLength > 400");
+        Serial.println("DataLength > 1000");
         while (1)
             ;
     }
-    delay(50);
+    delay(20);
 }

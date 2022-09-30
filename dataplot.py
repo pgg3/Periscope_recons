@@ -1,16 +1,27 @@
 from plot_utils import read_data
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
-DATA_PATH = "./data/delay50"
-DATA_LABEL = "1234"
+DATA_PATH = "./data/delay20"
+NON_DATA = ["none", "none-1"]
+DATA_LABELS = [
+    "1234",
+    "2345",
+]
+
+DATA_RANGE = np.arange(0, 1000)
+# DATA_RANGE = np.arange(20, 200)
 
 
 if __name__ == "__main__":
+    for no_data_lab in NON_DATA:
+        none_data = read_data(no_data_lab, DATA_PATH)
+        plt.plot(none_data[DATA_RANGE, 0], none_data[DATA_RANGE, 1], label=no_data_lab, alpha=0.3)
 
-    data, none_data = read_data(DATA_LABEL, DATA_PATH)
+    for each_lab in DATA_LABELS:
+        data = read_data(each_lab, DATA_PATH)
+        plt.plot(data[DATA_RANGE, 0], data[DATA_RANGE, 1], label=each_lab)
 
-    plt.plot(data[:, 0], data[:, 1], label=DATA_LABEL)
-    plt.plot(none_data[:, 0], none_data[:, 1], label="none")
     plt.legend()
     plt.show()
