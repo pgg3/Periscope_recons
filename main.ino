@@ -25,7 +25,7 @@
 
 const int chipSelect = 10;
 const int analogPin = A2;
-String dataLog = "2345.txt";
+String dataLog = "T1234.txt";
 int DataLength = 0;
 
 void setup()
@@ -65,7 +65,7 @@ void setup()
 void loop()
 {
     // make a string for assembling the data to log:
-    String dataString;
+    int dataString;
     unsigned long time;
 
     // read the pin
@@ -82,6 +82,7 @@ void loop()
         dataFile.print(time);
         dataFile.print(",");
         dataFile.println(dataString);
+
         dataFile.close();
         // print to the serial port too:
         // Serial.println(dataString);
@@ -94,9 +95,9 @@ void loop()
 
     DataLength += 1;
 
-    if (DataLength > 2000)
+    if (DataLength > 3000)
     {
-        Serial.println("DataLength > 2000");
+        Serial.println("DataLength > 3000");
         while (1)
             ;
     }

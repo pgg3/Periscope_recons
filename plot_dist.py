@@ -3,17 +3,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-DATA_PATH = "./data"
+DATA_PATH = "./dist_data"
 # NON_DATA = ["none", "none-1"]
-NON_DATA = []
+NON_DATA = ["0cm"]
 DATA_LABELS = [
-    "T1234",
-    # "T1234-1",
-    # "T2345",
-    # "T2345-1",
 ]
 
-DATA_RANGE = np.arange(0, 3000)
+DATA_RANGE = np.arange(0, 1200)
 # DATA_RANGE = np.arange(20, 200)
 
 

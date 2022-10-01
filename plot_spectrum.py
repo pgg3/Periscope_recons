@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     data = read_data(DATA_LABEL, DATA_PATH)
 
-    plt.specgram(data[:, 1], Fs=60, NFFT=128, noverlap=96, mode="magnitude", scale="dB", cmap=CMAP)
+    plt.specgram(data[:, 1], Fs=60, NFFT=64, noverlap=32, mode="magnitude", scale="dB", cmap=CMAP)
     plt.title("Data")
     plt.ylabel("Frequency")
     plt.xlabel("Time(s)")
