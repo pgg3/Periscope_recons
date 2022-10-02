@@ -94,6 +94,10 @@ void loop()
     }
 
     DataLength += 1;
+    if (DataLength == 1000)
+    {
+        Serial.println("DataLength > 1000, stable.");
+    }
 
     if (DataLength > 3000)
     {

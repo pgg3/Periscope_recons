@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 
 DATA_PATH = "./data"
-# NON_DATA = ["none", "none-1"]
-NON_DATA = []
+NON_DATA = ["none", "none-1"]
+# NON_DATA = []
 DATA_LABELS = [
     "T1234",
     # "T1234-1",
@@ -13,7 +13,7 @@ DATA_LABELS = [
     # "T2345-1",
 ]
 
-DATA_RANGE = np.arange(0, 3000)
+DATA_RANGE = np.arange(0, 2000)
 # DATA_RANGE = np.arange(20, 200)
 
 
