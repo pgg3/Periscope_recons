@@ -11,3 +11,8 @@ def read_data(data_label, data_path):
     data_np[:, 1] = data_np[:, 1] * (5.0 / 1023.0)
 
     return data_np
+
+def normalize_data(data):
+    data[:, 1] = data[:, 1] - np.min(data[:, 1])
+    data[:, 1] = data[:, 1] / np.max(data[:, 1])
+    return data

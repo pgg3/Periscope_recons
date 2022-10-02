@@ -8,9 +8,10 @@ NON_DATA = ["none", "none-1"]
 # NON_DATA = []
 DATA_LABELS = [
     "T1234",
-    # "T1234-1",
-    # "T2345",
-    # "T2345-1",
+    "T1360",
+    "T2345",
+    "T3456",
+    "T4567",
 ]
 
 DATA_RANGE = np.arange(0, 2000)
@@ -18,6 +19,7 @@ DATA_RANGE = np.arange(0, 2000)
 
 
 if __name__ == "__main__":
+    plt.ylim(2, 4)
     for no_data_lab in NON_DATA:
         none_data = read_data(no_data_lab, DATA_PATH)
         plt.plot(none_data[DATA_RANGE, 0], none_data[DATA_RANGE, 1], label=no_data_lab, alpha=0.3)
