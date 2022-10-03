@@ -75,7 +75,6 @@ if __name__ == '__main__':
     z = v_to_z(v, gamma1=gamma1.value, gamma2=gamma2.value, max_value=ALL_MAX)
     plt.figure(figsize=(8, 5))
     plt.title("V to Z(calibrated)")
-    # plt.title(each_file[:-4])
     plt.xlabel("Voltage(V)")
     plt.ylabel("Distance(cm)")
     plt.ylim(0, 6)
