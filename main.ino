@@ -25,7 +25,7 @@
 
 const int chipSelect = 10;
 const int analogPin = A2;
-String dataLog = "12346.txt";
+String dataLog = "0cm.txt";
 int DataLength = 0;
 
 void setup()
@@ -105,5 +105,5 @@ void loop()
         while (1)
             ;
     }
-    delay(10);
+    delay(15);
 }
