@@ -1,4 +1,4 @@
-from plot_utils import read_data
+from utils import read_data
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

@@ -2,9 +2,8 @@ import os
 import json
 import numpy as np
 from scipy.signal import find_peaks
-from plot_utils import read_data
 import matplotlib.pyplot as plt
-from utils import v_to_z
+from utils import v_to_z, read_data
 
 DATA_PATH = "./raw_data"
 DATA_LEN = 1500
@@ -40,13 +39,6 @@ if __name__ == '__main__':
 
         peaks_data_idx = find_peaks(enve_data[:, 1], distance=7)[0]
         peaks_data = enve_data[peaks_data_idx, :]
-        # plt.figure(figsize=(10, 5))
-        # plt.title("Envelop of {}".format(each_file[:-4]))
-        # # plt.plot(each_data[:, 0], each_data[:, 1], label="raw data")
-        # plt.plot(enve_data[:, 0], enve_data[:, 1], label="envelop")
-        # plt.scatter(peaks_data[:, 0], peaks_data[:, 1], marker="x", color="red", label="peaks")
-        # plt.legend()
-        # plt.show()
 
         four_max = np.argsort(peaks_data[:, 1])[-4:]
         four_max = peaks_data_idx[four_max]
@@ -54,7 +46,6 @@ if __name__ == '__main__':
         #
         four_max_data = enve_data[four_max[0]-1:four_max[-1]+2, :]
 
-        # normalization (remove extra current)
         seg_max_peaks = find_peaks(four_max_data[:, 1], distance=3)[0]
         seg_min_peaks = find_peaks(-four_max_data[:, 1], distance=3)[0]
         seg_all_peaks = np.sort(np.concatenate((seg_max_peaks, seg_min_peaks)))

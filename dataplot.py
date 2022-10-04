@@ -1,4 +1,4 @@
-from plot_utils import read_data
+from utils import read_data
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -7,13 +7,9 @@ DATA_PATH = "./data"
 # NON_DATA = ["none", "none-1"]
 NON_DATA = []
 DATA_LABELS = [
-
     "1234",
-    # "1234-1",
-    # "1234-2",
-    # "2345",
-    # "2345-1",
-    # "2345-2",
+    "1234-1",
+    "1234-2",
 ]
 
 DATA_RANGE = np.arange(0, 1500)

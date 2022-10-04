@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from matplotlib import pyplot as plt
-from plot_utils import read_data
+from utils import read_data
 
 DATA_PATH = "./data"
 DATA_LABEL = "2345"
