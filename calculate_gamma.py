@@ -1,4 +1,5 @@
 import os
+import tikzplotlib
 
 import numpy as np
 import cvxpy as cp
@@ -83,6 +84,7 @@ def calculate_gamma(dist_path=None, ZMIN=0.06, PLOT=True):
         plt.scatter(max_volt, 0.06, marker="x", color="red")
         plt.legend()
         plt.savefig("./figures/calibrated.svg")
+        # tikzplotlib.save("./test.tex")
         plt.show()
 
     return gamma1.value, gamma2.value

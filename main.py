@@ -31,8 +31,10 @@ if __name__ == '__main__':
         plot_all_file(RAW_PATH)
     file_path = os.listdir(RAW_PATH)
     all_key_pairs = []
+    move_length = []
     for each_file in file_path:
         key_pairs = []
+        each_move_length = []
         each_data = read_data(each_file[:-4], RAW_PATH)
         reverse_data = np.copy(each_data)
         reverse_data[:, 1] = -reverse_data[:, 1]
@@ -48,9 +50,11 @@ if __name__ == '__main__':
             this_key_pair = np.copy(z[this_peak_idx:next_peak_idx+1, :])
             this_key_pair[:, 0] = this_key_pair[:, 0] - this_key_pair[0, 0]
             key_pairs.append(this_key_pair)
-        for each_key_pair in key_pairs:
-            return_theta_confidence(each_key_pair)
+            move_x, move_y = return_theta_confidence(this_key_pair)
+            each_move_length.append([move_x, move_y])
+
         all_key_pairs.append(key_pairs)
+        move_length.append(each_move_length)
 
 
 

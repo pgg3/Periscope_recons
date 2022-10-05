@@ -1,15 +1,26 @@
 import os
+import tikzplotlib
 
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 from scipy.signal import find_peaks
 
-CAND_COS = [0, 0.7526, 0.4961, 0.3560, 1, 0.9162]
-CAND_SIN = [1, 0.6585, 0.8682, 0.9345, 0, 0.4581]
-V_P = 1
+# CAND_COS = [0, 0.7526, 0.4961, 0.3560, 1, 0.9162]
+# CAND_SIN = [1, 0.6585, 0.8682, 0.9345, 0, 0.4581]
+L_X = [0, 1, 2]
+L_Y = [0, 1, 2, 3]
+V_P = 1.32
 X_STEP = 1.6
 Y_STEP = 1.4
+def calc_dist_mat():
+    L_X_len = len(L_X)
+    L_Y_len = len(L_Y)
+    dist_mat = np.zeros((L_Y_len, L_X_len))
+    for i_x in range(L_X_len):
+        for i_y in range(L_Y_len):
+            dist_mat[i_y, i_x] = np.sqrt((L_X[i_x]*X_STEP)**2 + (L_Y[i_y]*Y_STEP)**2)
+    return dist_mat
 
 
 def v_to_z(v, gamma1=0.33, gamma2=3.35, max_value=None, zmin=0.06):
@@ -126,20 +137,51 @@ def extract_enve_and_seg(data, num_peaks=4):
 
 def return_theta_confidence(key_pair):
     one_mat = np.ones((key_pair.shape[0], 1))
+
     z1 = np.polyfit(key_pair[:, 0], key_pair[:, 1], 5)
     p1 = np.poly1d(z1)
     y_val = p1(key_pair[:, 0])
-    plt.figure(figsize=(10, 5))
-    plt.title("All Data")
-    plt.xlabel("Time(s)")
-    plt.ylabel("Distance(cm)")
-    plt.plot(key_pair[:, 0], key_pair[:, 1], label="Key Pair")
-    plt.plot(key_pair[:, 0], y_val, label="Fitting Curve")
+    time_last = key_pair[-1, 0]
+    prolong_time = np.arange(0, 1.2*time_last, 0.01)
+    prolong_y = p1(prolong_time)
 
-    plt.legend()
-    plt.show()
+    last_idx = int(key_pair[-1, 0] / 0.01)
+    touch_time_idx = np.argmin(prolong_y[last_idx:])
+    touch_time = prolong_time[touch_time_idx+last_idx]
 
+    # plt.figure(figsize=(10, 5))
+    # plt.title("Distance")
+    # plt.xlabel("Time(s)")
+    # plt.ylabel("$z(t)$(cm)")
+    # plt.scatter(key_pair[:, 0], key_pair[:, 1], label="Raw Data", marker="x", color="red")
+    # plt.plot(prolong_time, prolong_y, label="Prolonged Curve")
+    # plt.plot(touch_time, prolong_y[touch_time_idx+last_idx], "^", label="Touch Time")
+    # plt.legend()
+    # tikzplotlib.save("distance.tex")
+    # plt.show()
 
-    a = 1
+    move_dist = touch_time * V_P
+
+    dist_mat = calc_dist_mat()
+    dist_error = np.abs(dist_mat - move_dist)
+    sum_error = np.sum(dist_error)
+
+    confidence_mat = 1 - dist_error / sum_error
+    move_idx = np.argmax(confidence_mat)
+    move_x, move_y = np.unravel_index(move_idx, (4, 3))
+
+    # fig, ax = plt.subplots()
+    # im = ax.imshow(confidence_mat)
+    # ax.set_xticks(np.arange(confidence_mat.shape[1]))
+    # ax.set_yticks(np.arange(confidence_mat.shape[0]))
+    # for i in range(confidence_mat.shape[0]):
+    #     for j in range(confidence_mat.shape[1]):
+    #         text = ax.text(j, i, "{:.3f}".format(confidence_mat[i, j]),
+    #                        ha="center", va="center", color="w")
+    # ax.set_title("Confidence Matrix")
+    # fig.tight_layout()
+    # tikzplotlib.save("confidence.tex")
+    # plt.show()
+    return move_x, move_y
 
 

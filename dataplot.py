@@ -1,6 +1,7 @@
 from utils import read_data
 import matplotlib.pyplot as plt
 import numpy as np
+import tikzplotlib
 import pandas as pd
 
 DATA_PATH = "./data"
@@ -18,6 +19,7 @@ DATA_RANGE = np.arange(0, 1500)
 
 if __name__ == "__main__":
     # plt.ylim(2, 4)
+    plt.figure(figsize=(10, 4))
     for no_data_lab in NON_DATA:
         none_data = read_data(no_data_lab, DATA_PATH)
         plt.plot(none_data[DATA_RANGE, 0], none_data[DATA_RANGE, 1], label=no_data_lab, alpha=0.3)
@@ -26,5 +28,11 @@ if __name__ == "__main__":
         data = read_data(each_lab, DATA_PATH)
         plt.plot(data[DATA_RANGE, 0], data[DATA_RANGE, 1], label=each_lab)
 
+
+    plt.title("Raw Data")
+    plt.xlabel("Time(s)")
+    plt.ylabel("Voltage(V)")
     plt.legend()
+    plt.tight_layout()
+    tikzplotlib.save("test.tex")
     plt.show()

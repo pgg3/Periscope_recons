@@ -1,6 +1,7 @@
 from utils import read_data
 import matplotlib.pyplot as plt
 import numpy as np
+import tikzplotlib
 import pandas as pd
 
 DATA_PATH = "./dist_data"
@@ -11,8 +12,7 @@ DATA_LABELS = [
     "1cm",
     "1.3cm",
     "2cm",
-    "2.8cm",
-    "4cm"
+    "3.6cm"
     # "1234-1",
     # "1234-2",
     # "1234-3",
@@ -30,6 +30,7 @@ DATA_RANGE = np.arange(0, 1500)
 
 
 if __name__ == "__main__":
+    plt.figure(figsize=(10, 4))
     for no_data_lab in NON_DATA:
         none_data = read_data(no_data_lab, DATA_PATH)
         plt.plot(none_data[DATA_RANGE, 0], none_data[DATA_RANGE, 1], label=no_data_lab, alpha=0.3)
@@ -38,5 +39,11 @@ if __name__ == "__main__":
         data = read_data(each_lab, DATA_PATH)
         plt.plot(data[DATA_RANGE, 0], data[DATA_RANGE, 1], label=each_lab)
 
+    plt.title("Distance Data")
+    plt.xlabel("Time(s)")
+    plt.ylabel("Voltage(V)")
     plt.legend()
+    plt.tight_layout()
+    tikzplotlib.save("test.tex")
     plt.show()
+

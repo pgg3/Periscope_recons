@@ -1,0 +1,145 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\graphicspath{{./images}}
+
+%% Title
+\title{
+		\huge Reconstruction of Periscope \\
+}
+
+\usepackage{authblk}
+
+\author[1]{Ping Guo}
+
+
+\begin{document}
+\maketitle
+
+\selectlanguage{english}
+
+
+\section{Data Collection}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.25\textwidth]{Equipment.jpg}
+    \caption{Illustration of the prototype}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \input{./tikz_pic/raw_data.tex}
+    \caption{Digit sequence "1234"}
+\end{figure}
+
+
+\section{Data Processing}
+\subsection{Spectrogram}
+Here is one example of the spectrogram.
+\begin{figure}[htbp!]
+    \centering
+    \begin{tikzpicture}[scale=0.6]
+        \definecolor{darkgray176}{RGB}{176,176,176}
+
+        \begin{axis}[
+                tick align=outside,
+                tick pos=left,
+                title={Data},
+                x grid style={darkgray176},
+                xlabel={Time(s)},
+                xmin=0.266666666666667, xmax=49.3333333333333,
+                xtick style={color=black},
+                y grid style={darkgray176},
+                ylabel={Frequency},
+                ymin=0, ymax=15,
+                ytick style={color=black}
+            ]
+            \addplot graphics [includegraphics cmd=\pgfimage,xmin=0.266666666666667, xmax=49.3333333333333, ymin=0, ymax=15] {./images/test-000.png};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Spectrogram of the raw data}
+\end{figure}
+\subsection{Calibration of $\gamma_1$ and $\gamma_2$}
+In the paper, the distance from the finger to the screen $z(t)$ is estimated by:
+\begin{equation}
+    z(t) = 1/(\frac{2\gamma_1}{1 - \frac{|V_m(t)|}{|V_m(t)|^*}\frac{3}{5}}-4+\gamma_2)\times z_{min}
+\end{equation}
+where $|V_m(t)|$ is the amplitude of the measured voltage, $|V_m(t)|^*$ is the maximum value of the measurement. We use 0.6 mm as $z_{min}$ for our device iPhone 8.
+
+\begin{figure}[htbp]
+    \centering
+    \input{./tikz_pic/dist_raw_data.tex}
+    \caption{Data collected for calibration of the parameter}
+\end{figure}
+
+\textbf{Data Processing:}
+\begin{itemize}
+    \item Hold the finger at a fixed distance to the screen and measure the distance
+    \item The base voltage is set as the minimum value of the envelope of the raw data.
+    \item For 0CM data, we touch the screen four times and use the maximum value of the voltage. For other data, we use the first peak data as the recorded voltage.
+\end{itemize}
+\begin{figure}[htbp]
+    \centering
+    \input{./tikz_pic/dist_ana.tex}
+    \caption{Calibration result}
+\end{figure}
+
+\section{Fitting the trace}
+\begin{figure}[htbp]
+    \centering
+    \input{./tikz_pic/raw_data_all.tex}
+    \caption{Three digit sequences of "1234"}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \input{./tikz_pic/trace.tex}
+    \caption{One example of key pair}
+\end{figure}
+
+\begin{figure}[htbp!]
+    \centering
+    \input{./tikz_pic/confidence.tex}
+    \caption{Confidence matrix of the key pair}
+\end{figure}
+
+The final prediction for the raw data is:
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        Data Label & Move                 \\
+        \hline
+        1234       & [0,1], [0,1], [0, 1] \\
+        \hline
+        1234-1     & [1,1], [0,1], [0, 1] \\
+        \hline
+        1234-2     & [0,1], [1,1], [1, 1] \\
+        \hline
+    \end{tabular}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

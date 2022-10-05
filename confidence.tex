@@ -1,0 +1,81 @@
+% This file was created with tikzplotlib v0.10.1.
+\begin{tikzpicture}
+
+\definecolor{darkgray176}{RGB}{176,176,176}
+
+\begin{axis}[
+tick align=outside,
+tick pos=left,
+title={Confidence Matrix},
+x grid style={darkgray176},
+xmin=-0.5, xmax=2.5,
+xtick style={color=black},
+y dir=reverse,
+y grid style={darkgray176},
+ymin=-0.5, ymax=3.5,
+ytick style={color=black}
+]
+\addplot graphics [includegraphics cmd=\pgfimage,xmin=-0.5, xmax=2.5, ymin=3.5, ymax=-0.5] {confidence-000.png};
+\draw (axis cs:0,0) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.922};
+\draw (axis cs:1,0) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{1.000};
+\draw (axis cs:2,0) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.922};
+\draw (axis cs:0,1) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.990};
+\draw (axis cs:1,1) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.974};
+\draw (axis cs:2,1) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.907};
+\draw (axis cs:0,2) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.941};
+\draw (axis cs:1,2) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.921};
+\draw (axis cs:2,2) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.870};
+\draw (axis cs:0,3) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.873};
+\draw (axis cs:1,3) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.859};
+\draw (axis cs:2,3) node[
+  scale=0.5,
+  text=white,
+  rotate=0.0
+]{0.820};
+\end{axis}
+
+\end{tikzpicture}

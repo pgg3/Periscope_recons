@@ -1,10 +1,11 @@
 import os
 import pandas as pd
+import tikzplotlib
 from matplotlib import pyplot as plt
 from utils import read_data
 
 DATA_PATH = "./data"
-DATA_LABEL = "2345"
+DATA_LABEL = "1234"
 
 if __name__ == "__main__":
     if not os.path.exists("./figures/specgram"):
@@ -13,11 +14,16 @@ if __name__ == "__main__":
 
     data = read_data(DATA_LABEL, DATA_PATH)
 
-    plt.specgram(data[:, 1], Fs=60, NFFT=64, noverlap=32, mode="magnitude", scale="dB", cmap=CMAP)
+    plt.figure(figsize=(10, 4))
+    plt.specgram(data[:, 1], Fs=30, NFFT=32, noverlap=16, mode="magnitude", scale="dB", cmap=CMAP)
     plt.title("Data")
     plt.ylabel("Frequency")
     plt.xlabel("Time(s)")
-    plt.savefig("./figures/specgram/{}.svg".format(DATA_LABEL))
+    # plt.colorbar()
+    plt.tight_layout()
+    tikzplotlib.save("test.tex")
+    # plt.savefig("./figures/specgram/{}.svg".format(DATA_LABEL))
+
     plt.show()
 
     # none_data = read_data("none-1", DATA_PATH)

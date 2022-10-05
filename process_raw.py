@@ -59,8 +59,6 @@ if __name__ == '__main__':
         plt.legend()
         plt.show()
 
-
-
         min_min_peak = np.argmin(four_max_data[seg_min_peaks, 1])
         four_max_data[:, 1] -= np.min(four_max_data[:, 1]) - 0.2
 
